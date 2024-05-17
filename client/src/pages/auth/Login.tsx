@@ -1,20 +1,20 @@
-import  { useState, FormEvent } from "react";
+import { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import axios from "../../services/api";
 import request from "../../services/requests";
 
-import { ACCESS_TOKEN, REFRESH_TOKEN} from "../../data";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../data";
 
 import { useStateContext } from "../../contexts/ContextProvider";
-
 
 const defaultTheme = createTheme();
 
@@ -24,36 +24,20 @@ function LogIn() {
   const [isLoading, setIsLoading] = useState(false);
   const { updateAuthStatus } = useStateContext();
 
-
   const navigate = useNavigate();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    setIsLoading(true);
     event.preventDefault();
-    console.log(request.login);
+    setIsLoading(true);
     try {
-      const formData = new URLSearchParams();
-      formData.append("username", username);
-      formData.append("password", password);
-
-      const response = await axios.post(request.login, {username, password});
+      const response = await axios.post(request.login, { username, password });
       localStorage.setItem(ACCESS_TOKEN, response.data.access);
       localStorage.setItem(REFRESH_TOKEN, response.data.refresh);
       updateAuthStatus(true);
-      navigate("/")
-
-      // if (response.status === 200) {
-      //   console.log("Login successful!");
-      //   localStorage.setItem("token", response.data.token);
-      // } else {
-      //   console.error("Login Failed:", response.data.message);
-      // }
+      navigate("/");
     } catch (error) {
       console.error("Login Failed:", error);
-    }
-    finally{
-      setUsername("");
-      setPassword("");
+    } finally {
       setIsLoading(false);
     }
   };
@@ -66,48 +50,51 @@ function LogIn() {
           <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box className="flex flex-col items-center">
-              <form onSubmit={handleSubmit} noValidate>
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="username"
-                  label="Username"
-                  name="username"
-                  autoComplete="username"
-                  autoFocus
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <button
-                  type="submit"
-                  className="bg-blue-600 py-3 text-white rounded-lg w-full mt-6 hover:bg-blue-700 transition"
-                >
-                  Login
-                </button>
-
-                <p className="text-neutral-500 mt-4">
-                  Don't have an account?
-                  <a
-                    href="/signin"
-                    className="text-blue-400 font-semibold text-lg ml-1 hover:underline cursor-pointer"
+              {isLoading ? (
+                <CircularProgress />
+              ) : (
+                <form onSubmit={handleSubmit} noValidate>
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="username"
+                    label="Username"
+                    name="username"
+                    autoComplete="username"
+                    autoFocus
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <button
+                    type="submit"
+                    className="bg-blue-600 py-3 text-white rounded-lg w-full mt-6 hover:bg-blue-700 transition"
                   >
-                    Register
-                  </a>
-                </p>
-              </form>
+                    Login
+                  </button>
+                  <p className="text-neutral-500 mt-4">
+                    Don't have an account?
+                    <a
+                      href="/signin"
+                      className="text-blue-400 font-semibold text-lg ml-1 hover:underline cursor-pointer"
+                    >
+                      Register
+                    </a>
+                  </p>
+                </form>
+              )}
             </Box>
           </Container>
         </ThemeProvider>

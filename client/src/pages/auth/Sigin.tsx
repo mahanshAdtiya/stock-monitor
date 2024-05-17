@@ -1,16 +1,17 @@
-import  { useState, FormEvent } from "react";
+import { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
+import CircularProgress from "@mui/material/CircularProgress";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import axios from "../../services/api";
 import request from "../../services/requests";
 
-import { ACCESS_TOKEN, REFRESH_TOKEN} from "../../data";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../data";
 
 const defaultTheme = createTheme();
 
@@ -25,28 +26,13 @@ function SignIn() {
     setIsLoading(true);
     event.preventDefault();
     try {
-      const formData = new URLSearchParams();
-      formData.append("username", username);
-      formData.append("password", password);
-
-      console.log(request.signin);
-      const response = await axios.post(request.signin, {username, password});
+      const response = await axios.post(request.signin, { username, password });
       localStorage.setItem(ACCESS_TOKEN, response.data.access);
       localStorage.setItem(REFRESH_TOKEN, response.data.refresh);
-      navigate("/login")
-
-      // if (response.status === 200) {
-      //   console.log("Login successful!");
-      //   localStorage.setItem("token", response.data.token);
-      // } else {
-      //   console.error("Login Failed:", response.data.message);
-      // }
+      navigate("/login");
     } catch (error) {
-      console.error("Login Failed:", error);
-    }
-    finally{
-      setUsername("");
-      setPassword("");
+      console.error("SignIn Failed:", error);
+    } finally {
       setIsLoading(false);
     }
   };
@@ -59,48 +45,51 @@ function SignIn() {
           <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box className="flex flex-col items-center">
-              <form onSubmit={handleSubmit} noValidate>
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="username"
-                  label="Username"
-                  name="username"
-                  autoComplete="username"
-                  autoFocus
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <button
-                  type="submit"
-                  className="bg-blue-600 py-3 text-white rounded-lg w-full mt-6 hover:bg-blue-700 transition"
-                >
-                  SignIn
-                </button>
-
-                <p className="text-neutral-500 mt-4">
-                    Already have an account?
-                  <a
-                    href="/login"
-                    className="text-blue-400 font-semibold text-lg ml-1 hover:underline cursor-pointer"
+              {isLoading ? (
+                <CircularProgress />
+              ) : (
+                <form onSubmit={handleSubmit} noValidate>
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="username"
+                    label="Username"
+                    name="username"
+                    autoComplete="username"
+                    autoFocus
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <button
+                    type="submit"
+                    className="bg-blue-600 py-3 text-white rounded-lg w-full mt-6 hover:bg-blue-700 transition"
                   >
-                    Login
-                  </a>
-                </p>
-              </form>
+                    SignIn
+                  </button>
+                  <p className="text-neutral-500 mt-4">
+                    Already have an account?
+                    <a
+                      href="/login"
+                      className="text-blue-400 font-semibold text-lg ml-1 hover:underline cursor-pointer"
+                    >
+                      Login
+                    </a>
+                  </p>
+                </form>
+              )}
             </Box>
           </Container>
         </ThemeProvider>
