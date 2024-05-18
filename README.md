@@ -46,13 +46,13 @@ cd stock-monitoring-platform
 ## Server Setup
 1. Create a virtual environment:
 
-    **MacOS/Linux:**
+    - **MacOS/Linux:**
     ```bash
     python3 -m venv myenv
     source myenv/bin/activate
     ```
 
-    **Windows:**
+    - **Windows:**
     ```bash
     python -m venv myenv
     .\myenv\Scripts\activate
@@ -60,10 +60,7 @@ cd stock-monitoring-platform
 
 2. Install the server dependencies:
     ```bash
-    pip install -r requirements.txt
+    pip install -r server/requirements.txt
     ```
 
-3. Start the server:
-    ```bash
-    python server.py
-    ```
+
