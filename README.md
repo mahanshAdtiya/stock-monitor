@@ -10,9 +10,9 @@ This project is a stock monitoring platform that allows users to create and mana
 - **Concurrent User Handling**
 
 ## Technologies Used
-- **Frontend:** React, TypeScript, Material UI
+- **Frontend:** React Vite, TypeScript, Material UI
 - **Backend:** Django (Python)
-- **Database:** Your choice (MySQL/PostgreSQL/MongoDB)
+- **Database:** SQLite
 - **Stock Data API:** [Alpha Vantage](https://www.alphavantage.co)
 
 ## Setup Instructions
@@ -26,4 +26,31 @@ This project is a stock monitoring platform that allows users to create and mana
 ```bash
 git clone https://github.com/yourusername/stock-monitoring-platform.git
 cd stock-monitoring-platform
+```
+### Client Setup 
+-#1. Navigate to client directory :
+``` bash
+cd  stock-monitoring-platform/client
+```
+-#2. Install dependencies:
+``` bash
+npm install
+```
+-#3. Start the project:
+``` bash
+npm run dev
+```
+
+### Server Setup 
+-#1. Create a virtual environment:
+-- # MacOs/Linux:
+``` bash
+python3 -m venv myenv
+source myenv/bin/activate
+```
+--# Windows : 
+``` bash
+python -m venv myenv
+.\myenv\Scripts\activate
+
 ```
