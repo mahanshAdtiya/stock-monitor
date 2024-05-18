@@ -69,9 +69,9 @@ cd stock-monitoring-platform
 
 4. Apply Migrations and run the server:
    ``` bash
-   python3 manage.py makemigrations
-   python3 manage.py migrate
-   python3 manage.py runserver
+   python manage.py makemigrations
+   python manage.py migrate
+   python manage.py runserver
    ```
 
 ### Access the Platform:
