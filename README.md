@@ -27,7 +27,7 @@ This project is a stock monitoring platform that allows users to create and mana
 git clone https://github.com/yourusername/stock-monitoring-platform.git
 cd stock-monitoring-platform
 ```
-## Client Setup
+### Client Setup
 1. Navigate to the client directory:
     ```bash
     cd stock-monitoring-platform/client
@@ -43,7 +43,7 @@ cd stock-monitoring-platform
     npm run dev
     ```
     
-## Server Setup
+### Server Setup
 1. Create a virtual environment:
     - **MacOS/Linux:**
     ```bash
@@ -61,5 +61,20 @@ cd stock-monitoring-platform
     ```bash
     pip install -r server/requirements.txt
     ```
+
+3. Navigate to the server directory:
+   ``` bash
+   cd server
+   ```
+
+4. Apply Migrations and run the server:
+   ``` bash
+   python3 manage.py makemigrations
+   python3 manage.py migrate
+   python3 manage.py runserver
+   ```
+
+### Access the Platform:
+Once both the client and server are running, navigate to the link provided by the client build process to access the platform.
 
 
