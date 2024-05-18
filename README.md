@@ -32,14 +32,17 @@ cd stock-monitoring-platform
     ```bash
     cd stock-monitoring-platform/client
     ```
+    
 2. Install dependencies:
     ```bash
     npm install
     ```
+    
 3. Start the project:
     ```bash
     npm run dev
     ```
+    
 ## Server Setup
 1. Create a virtual environment:
     - **MacOS/Linux:**
@@ -47,11 +50,13 @@ cd stock-monitoring-platform
     python3 -m venv myenv
     source myenv/bin/activate
     ```
+    
     - **Windows:**
     ```bash
     python -m venv myenv
     .\myenv\Scripts\activate
     ```
+    
 2. Install the server dependencies:
     ```bash
     pip install -r server/requirements.txt
