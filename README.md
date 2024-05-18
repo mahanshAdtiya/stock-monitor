@@ -77,4 +77,5 @@ cd stock-monitoring-platform
 ### Access the Platform:
 Once both the client and server are running, navigate to the link provided by the client build process to access the platform.
 
-
+### DEMO Video
+[Watch the video](https://drive.google.com/file/d/1xLj8867Xh7_Xjdn6dJ_FBRARu5sWq8Xq/view?usp=share_link)
